@@ -1,0 +1,64 @@
+<div style="display:grid;grid-template-columns:25fr 75fr;grid-gap:10px">
+  <div>
+    <h3>Live Quotes</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr">
+      <div style="cursor:pointer" [ngStyle]="{'color': useMockData === false ? 'steelblue' : 'lightgray'}">Live Data</div>
+      <div style="cursor:pointer" [ngStyle]="{'color': useMockData === true ? 'steelblue' : 'lightgray'}">Mock Data</div>
+    </div>
+    <br />
+    <div *ngFor="let liveQuote of liveQuotes"
+      style="display:grid;grid-template-columns:1fr 1fr 1fr;width:200px;grid-gap:10px">
+      <div>
+        {{liveQuote.symbol}}
+      </div>
+      <div>{{liveQuote.bid}}</div>
+      <div>{{liveQuote.ask}}</div>
+    </div>
+    <br />
+    <h3>Heikin Ashi {{heikinAshiAlerts.length}}</h3>
+    <div *ngFor="let heikinAshi of heikinAshiAlerts"
+      style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;width:200px;grid-gap:10px">
+      <div>{{heikinAshi.symbol}}</div>
+      <div>{{heikinAshi.alertType}}</div>
+      <div>{{heikinAshi.alertSequenceNumber}}</div>
+      <div>{{heikinAshi.alertDateTime}}</div>
+    </div>
+  </div>
+
+  <div>
+    <div style="display:grid;grid-template-columns: 20fr 80fr">
+      <h3>Pivots</h3>
+      <div style="display:grid;grid-template-columns: 10fr 10fr 10fr 70fr">
+        <div [ngStyle]="{'color': pivotName === 'STANDARD' ? 'steelblue' : 'lightgray', 'cursor': pivotName !== 'STANDARD' ? 'pointer' : 'auto'}" (click)="setPivot('STANDARD')">Standard</div>
+        <div [ngStyle]="{'color': pivotName === 'WOODIE' ? 'steelblue' : 'lightgray', 'cursor': pivotName !== 'WOODIE' ? 'pointer' : 'auto'}" (click)="setPivot('WOODIE')">Woodie</div>
+        <div [ngStyle]="{'color': pivotName === 'CAMARILLA' ? 'steelblue' : 'lightgray', 'cursor': pivotName !== 'CAMARILLA' ? 'pointer' : 'auto'}" (click)="setPivot('CAMARILLA')">Camarilla</div>
+      </div>
+    </div>
+    <div *ngFor="let pivotPoint of pivotPoints"
+      style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;grid-gap:10px">
+      <div>{{pivotPoint.symbol}}</div>
+      <div>{{pivotPoint.pivotPointsResult.r3}}</div>
+      <div>{{pivotPoint.pivotPointsResult.r2}}</div>
+      <div>{{pivotPoint.pivotPointsResult.r1}}</div>
+      <div>{{pivotPoint.pivotPointsResult.pp}}</div>
+      <div>{{pivotPoint.pivotPointsResult.s1}}</div>
+      <div>{{pivotPoint.pivotPointsResult.s2}}</div>
+      <div>{{pivotPoint.pivotPointsResult.s3}}</div>
+    </div>
+    <br />
+    <h3>Pivot Difference</h3>
+    <div *ngFor="let pivotPoint of pivotDifferences"
+      style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;grid-gap:10px">
+      <div>{{pivotPoint.symbol}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.r3)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.r2)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.r1)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.pp)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.s1)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.s2)}}</div>
+      <div>{{transformDifference(pivotPoint.pivotPointsResult.s3)}}</div>
+    </div>
+  </div>
+</div>
+
+<br /><br />
